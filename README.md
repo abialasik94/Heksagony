@@ -15,5 +15,5 @@ b) <heksagonyPunkty99> to name of output hexagons which will made,<br>
 c) <4326> to EPSG code of your layer<br>
 d) !OPTIONAL! <0.1> height of output hexagons in degrees<br>
 e) !OPTIONAL! <0.866> heigh of hexagons to width ratio<br>
-8.Paste script to Query Tool in pgAdmin
-9.A new spatial layer with hexagons should be created. In one of created column in this layer should be data with points density, length of lines or polygons area in each hexagon depends on file format you added.
+8. Paste script to Query Tool in pgAdmin
+9. A new spatial layer with hexagons should be created. In one of created column in this layer should be data with points density, length of lines or polygons area in each hexagon depends on file format you added.
