@@ -9,11 +9,11 @@ The easiest and fastest way to run is:
 4. Install Postgis extension to your postgres and CREATE EXTENSION postgis in database
 5. Install Qgis and connect it with database
 6. Load spatial layer(no matter if point, line or polygon type) via Qgis to your database with earlier added postgis extension
-7. Change in Skrypt.sql (in DECLARE section) :
-a) !IN 3 PLACES! <baea_nests> to your spatial layername, 
-b) <heksagonyPunkty99> to name of output hexagons which will made,
-c) <4326> to EPSG code of your layer
-d) !OPTIONAL! <0.1> height of output hexagons in degrees
-e) !OPTIONAL! <0.866> heigh of hexagons to width ratio
+7. Change in Skrypt.sql (in DECLARE section) :<br>
+a) !IN 3 PLACES! <baea_nests> to your spatial layername, <br>
+b) <heksagonyPunkty99> to name of output hexagons which will made,<br>
+c) <4326> to EPSG code of your layer<br>
+d) !OPTIONAL! <0.1> height of output hexagons in degrees<br>
+e) !OPTIONAL! <0.866> heigh of hexagons to width ratio<br>
 8.Paste script to Query Tool in pgAdmin
 9.A new spatial layer with hexagons should be created. In one of created column in this layer should be data with points density, length of lines or polygons area in each hexagon depends on file format you added.
