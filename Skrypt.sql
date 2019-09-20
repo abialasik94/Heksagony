@@ -1,8 +1,8 @@
 DO $$
 DECLARE
-   _warstwa TEXT := <spatial_layer>;
-  _curs   CURSOR FOR  SELECT geom FROM  <spatial_layer> ;
-  _typ TEXT	:=  st_geometrytype(l.geom) FROM <spatial_layer> l  LIMIT 1;
+   _warstwa TEXT := <SpatialTable>;
+  _curs   CURSOR FOR  SELECT geom FROM  <SpatialTable> ;
+  _typ TEXT	:=  st_geometrytype(l.geom) FROM <SpatialTable> l  LIMIT 1;
   _table  TEXT     := <output_layer_name>;
   _srid   INTEGER  := <SRID_number>;
   _height NUMERIC  := <height_value>;

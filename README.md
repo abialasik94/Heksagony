@@ -10,7 +10,7 @@ The easiest and fastest way to run is:
 5. Install Qgis and connect it with database
 6. Load spatial layer(no matter if point, line or polygon type) via Qgis to your database with earlier added postgis extension
 7. Change in Skrypt.sql (in DECLARE section) :<br>
-a) !IN 3 PLACES! <spatial_layer> - your spatial layername, <br>
+a) !IN 3 PLACES! <SpatialTable> - table in postgres database with column 'geom' which contains geometry of points, lines or polygons, <br>
 b) <output_layer_name> - name of output hexagons which will made,<br>
 c) <SRID_number> - EPSG code of your layer<br>
 d) <height_value> height of output hexagons in units depends on coordinate system you choosed<br>
