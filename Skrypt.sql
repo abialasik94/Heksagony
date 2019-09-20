@@ -107,7 +107,7 @@ BEGIN
 							  hex.geom)
 					  )*1000
 				  ) :: NUMERIC, 3)
-			FROM tmp hex, (SELECT DISTINCT geom FROM'||_warstwa||' ) as poligony
+			FROM tmp hex, (SELECT DISTINCT geom FROM '||_warstwa||' ) as poligony
 			WHERE st_intersects(poligony.geom, hex.geom)
 			GROUP BY hex.geom, hex.id';
 
