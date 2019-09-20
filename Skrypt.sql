@@ -1,11 +1,11 @@
 DO $$
 DECLARE
-   _warstwa TEXT := 'baea_nests';
-  _curs   CURSOR FOR  SELECT geom FROM  baea_nests ;
-  _typ TEXT	:=  st_geometrytype(l.geom) FROM baea_nests l  LIMIT 1;
-  _table  TEXT     := 'heksagonyPunkty99';
-  _srid   INTEGER  := 4326;
-  _height NUMERIC  := 0.1;
+   _warstwa TEXT := 'zglinie';
+  _curs   CURSOR FOR  SELECT geom FROM  zglinie ;
+  _typ TEXT	:=  st_geometrytype(l.geom) FROM zglinie l  LIMIT 1;
+  _table  TEXT     := 'heksagonyzg';
+  _srid   INTEGER  := 3857;
+  _height NUMERIC  := 1001;
   _width  NUMERIC  := _height * 0.866;
   _geom   GEOMETRY;
   _hx     GEOMETRY := ST_GeomFromText(
@@ -67,7 +67,7 @@ BEGIN
   EXECUTE 'CREATE INDEX sidx_tmp_geom ON  tmp USING GIST (geom)';
   EXECUTE 'DROP TABLE IF EXISTS ' || _table ;
 
-			IF _typ =  'ST_MultiPoint' THEN
+			IF _typ IN  ('ST_MultiPoint', 'ST_Point') THEN
 			EXECUTE 'CREATE TABLE ' || _table || ' (geom GEOMETRY(POLYGON, '||_srid||' ), id INTEGER, iloscPunktow INTEGER);
 			INSERT INTO ' || _table || '
 			SELECT
@@ -77,7 +77,7 @@ BEGIN
 			WHERE st_intersects(punkty.geom, hex.geom)
 			GROUP BY hex.geom, hex.id';
 
-			ELSIF _typ = 'ST_MultiLineString'  THEN
+			ELSIF _typ IN ('ST_MultiLineString', 'ST_LineString')  THEN
 			EXECUTE 'CREATE TABLE ' || _table || ' (geom GEOMETRY(POLYGON, '||_srid||' ), id INTEGER, dlugoscLinii NUMERIC);
 			INSERT INTO ' || _table || '
 			SELECT
@@ -94,7 +94,7 @@ BEGIN
 			WHERE st_intersects(linie.geom, hex.geom)
 			GROUP BY hex.geom, hex.id';
 
-			ELSIF _typ = 'ST_MultiPolygon'  THEN
+			ELSIF _typ IN ('ST_MultiPolygon', 'ST_Polygon')  THEN
 			EXECUTE 'CREATE TABLE ' || _table || ' (geom GEOMETRY(POLYGON, '||_srid||' ), id INTEGER, powPoligonow NUMERIC);
 			INSERT INTO ' || _table || '
 			SELECT
@@ -112,8 +112,10 @@ BEGIN
 			GROUP BY hex.geom, hex.id';
 
 	ELSE
-		RAISE NOTICE 'Dodałeś nieobsługiwany typ warstwy';
+			RAISE NOTICE 'Dodałeś nieobsługiwany typ warstwy';
 	END IF;
 
   DROP TABLE IF EXISTS hx_tmp;
 END $$;
+
+
