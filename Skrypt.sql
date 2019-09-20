@@ -112,7 +112,7 @@ BEGIN
 			GROUP BY hex.geom, hex.id';
 
 	ELSE
-			RAISE NOTICE 'Dodałeś nieobsługiwany typ warstwy';
+			RAISE NOTICE 'You have added unsupported layer type';
 	END IF;
 
   DROP TABLE IF EXISTS hx_tmp;
