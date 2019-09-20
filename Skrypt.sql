@@ -1,13 +1,13 @@
 DO $$
 DECLARE
-   _warstwa TEXT := 'zglinie';
-  _curs   CURSOR FOR  SELECT geom FROM  zglinie ;
-  _typ TEXT	:=  st_geometrytype(l.geom) FROM zglinie l  LIMIT 1;
-  _table  TEXT     := 'heksagonyzg';
+  _warstwa TEXT := 'zgmiejscezam';
+  _curs   CURSOR FOR  SELECT geom FROM  zgmiejscezam ;
+  _typ TEXT	:=  st_geometrytype(l.geom) FROM zgmiejscezam l  LIMIT 1;
+  _table  TEXT     := 'heksagonyzg1';
   _srid   INTEGER  := 3857;
   _height NUMERIC  := 1001;
   _width  NUMERIC  := _height * 0.866;
-  _geom   GEOMETRY;
+  _geom   GEOMETRY ;
   _hx     GEOMETRY := ST_GeomFromText(
                         FORMAT('POLYGON((0 0, %s %s, %s %s, %s %s, %s %s, %s %s, 0 0))',
                           (_width *  0.5), (_height * 0.25),
@@ -72,8 +72,8 @@ BEGIN
 			INSERT INTO ' || _table || '
 			SELECT
 			  hex.geom, hex.id,
-				  count(punkty.geom)
-			FROM tmp hex, '||_warstwa||' punkty
+				  count(punkty.geom )
+			FROM tmp hex, (SELECT DISTINCT geom FROM '||_warstwa||' ) as punkty
 			WHERE st_intersects(punkty.geom, hex.geom)
 			GROUP BY hex.geom, hex.id';
 
@@ -90,7 +90,7 @@ BEGIN
 							  hex.geom)
 					  )
 				  ) :: NUMERIC, 3) dlugosci
-			FROM tmp hex, '||_warstwa||' linie
+			FROM tmp hex, (SELECT DISTINCT geom FROM '||_warstwa||' ) as linie
 			WHERE st_intersects(linie.geom, hex.geom)
 			GROUP BY hex.geom, hex.id';
 
@@ -107,7 +107,7 @@ BEGIN
 							  hex.geom)
 					  )*1000
 				  ) :: NUMERIC, 3)
-			FROM tmp hex, '||_warstwa||' poligony
+			FROM tmp hex, (SELECT DISTINCT geom FROM'||_warstwa||' ) as poligony
 			WHERE st_intersects(poligony.geom, hex.geom)
 			GROUP BY hex.geom, hex.id';
 
