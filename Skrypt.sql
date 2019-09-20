@@ -1,12 +1,12 @@
 DO $$
 DECLARE
-   _warstwa TEXT := 'zglinie';
-  _curs   CURSOR FOR  SELECT geom FROM  zglinie ;
-  _typ TEXT	:=  st_geometrytype(l.geom) FROM zglinie l  LIMIT 1;
-  _table  TEXT     := 'heksagonyzg';
-  _srid   INTEGER  := 3857;
-  _height NUMERIC  := 1001;
-  _width  NUMERIC  := _height * 0.866;
+   _warstwa TEXT := <spatial_layer>;
+  _curs   CURSOR FOR  SELECT geom FROM  <spatial_layer> ;
+  _typ TEXT	:=  st_geometrytype(l.geom) FROM <spatial_layer> l  LIMIT 1;
+  _table  TEXT     := <output_layer_name>;
+  _srid   INTEGER  := <SRID_number>;
+  _height NUMERIC  := <height_value>;
+  _width  NUMERIC  := _height * <height_to_witdh_ratio>;
   _geom   GEOMETRY;
   _hx     GEOMETRY := ST_GeomFromText(
                         FORMAT('POLYGON((0 0, %s %s, %s %s, %s %s, %s %s, %s %s, 0 0))',
@@ -112,7 +112,7 @@ BEGIN
 			GROUP BY hex.geom, hex.id';
 
 	ELSE
-			RAISE NOTICE 'Dodałeś nieobsługiwany typ warstwy';
+			RAISE NOTICE 'You have added unsupported layer type';
 	END IF;
 
   DROP TABLE IF EXISTS hx_tmp;
