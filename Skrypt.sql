@@ -1,9 +1,9 @@
 DO $$
 DECLARE
-   _warstwa TEXT := <SpatialTable>;
+   _warstwa TEXT := <'SpatialTable'>;
   _curs   CURSOR FOR  SELECT geom FROM  <SpatialTable> ;
   _typ TEXT	:=  st_geometrytype(l.geom) FROM <SpatialTable> l  LIMIT 1;
-  _table  TEXT     := <output_layer_name>;
+  _table  TEXT     := <'output_layer_name'>;
   _srid   INTEGER  := <SRID_number>;
   _height NUMERIC  := <height_value>;
   _width  NUMERIC  := _height * <height_to_witdh_ratio>;
